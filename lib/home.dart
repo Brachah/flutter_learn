@@ -45,7 +45,8 @@ class _OThomePageState extends State<OThomePage> {
    //scaffoldkey
   final GlobalKey<ScaffoldState>
   _scaffoldkey =GlobalKey<ScaffoldState>();
-
+  //add page index
+  int pageIndex = 0;
   @override
   Widget build(BuildContext context) {
    return Scaffold(
@@ -71,53 +72,80 @@ class _OThomePageState extends State<OThomePage> {
       ],
     ),
     backgroundColor: Colors.white,
-     body: //Text("test"),
-     Column(
-      children: [
-        //header
-        Container(
-          width: double.infinity,
-          height: 250,
-          //background image
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: NetworkImage("https://www.shutterstock.com/shutterstock/photos/1928997539/display_1500/stock-vector-breaking-news-template-with-d-red-and-blue-badge-breaking-news-text-on-dark-blue-with-earth-and-1928997539.jpg"),
-              fit: BoxFit.cover,
-               )
-          ),
-          child: Container(
+     body: SingleChildScrollView(
+      //Text("test"),
+       child: Column(
+        children: [
+          //header
+          Container(
+            width: double.infinity,
+            height: 250,
+            //background image
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.bottomRight,
-                colors: [
-                  Colors.black.withOpacity(1.0),
-                  Colors.black.withOpacity(.0),
-                ]
-              )
+              image: DecorationImage(
+                image: NetworkImage("https://www.shutterstock.com/shutterstock/photos/1928997539/display_1500/stock-vector-breaking-news-template-with-d-red-and-blue-badge-breaking-news-text-on-dark-blue-with-earth-and-1928997539.jpg"),
+                fit: BoxFit.cover,
+                 )
             ),
-            padding: EdgeInsets.all(15),
-            child: Align( 
-              alignment: Alignment.bottomLeft,
-              child: Text(
-                "Latest news loading,Latest news loading,Latest news loading,Latest news loading,Latest news loading,Latest news loading,Latest news loading,Latest news loading,Latest news loading,Latest news loading,Latest news loading,Latest news loading,", 
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 22, color: Colors.white,
-                  height: 1.2, fontWeight: FontWeight.w900),),
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.bottomRight,
+                  colors: [
+                    Colors.black.withOpacity(1.0),
+                    Colors.black.withOpacity(.0),
+                  ]
+                )
+              ),
+              padding: EdgeInsets.all(15),
+              child: Align( 
+                alignment: Alignment.bottomLeft,
+                child: Text(
+                  "Latest news loading,Latest news loading,Latest news loading,Latest news loading,Latest news loading,Latest news loading,Latest news loading,Latest news loading,Latest news loading,Latest news loading,Latest news loading,Latest news loading,", 
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontSize: 22, color: Colors.white,
+                    height: 1.2, fontWeight: FontWeight.w900),),
+            ),
+            ),
           ),
-          ),
+          //body
+          for(var i =0; i<3; i++)
+          OTblogList().getCard(
+            thumbnail: "https://guardian.ng/wp-content/uploads/2022/11/Computer-Class-Students-Training.jpg",
+            title: "Expert gives tips for Africa’s tech growth in 2024",
+            desciption: "In view of global and local trends, Mohammed argues that Tech will continue to be a genuine currency driving an interesting future for young Africans. To this end, he opined that young Africans would build more online community platforms that would connect them and enable them to showcase their prowess. According to him, these efforts can be drawn into a larger base when the government recognizes its essence and pushes it towards the growth of digital economies.",
+            author:"Guardians",
+            date:" as at now",
+            ),
+        ],
+       ),
+     ),
+    bottomNavigationBar: BottomNavigationBar(
+      currentIndex: pageIndex,
+      onTap: (index) {
+        //rebuild ui
+        setState(() {
+          pageIndex = index;
+        });
+        //log index
+        //print("Index: $index");
+      },
+      selectedItemColor: Colors.red, 
+    items: const[
+      BottomNavigationBarItem(
+        icon: Icon( Icons.home),
+        label: "Home",
         ),
-        //body
-        OTblogList().getCard(
-          thumbnail: "https://guardian.ng/wp-content/uploads/2022/11/Computer-Class-Students-Training.jpg",
-          title: "Expert gives tips for Africa’s tech growth in 2024",
-          desciption: "In view of global and local trends, Mohammed argues that Tech will continue to be a genuine currency driving an interesting future for young Africans. To this end, he opined that young Africans would build more online community platforms that would connect them and enable them to showcase their prowess. According to him, these efforts can be drawn into a larger base when the government recognizes its essence and pushes it towards the growth of digital economies.",
-          author:"Guardians",
-          date:" as at now",
-          ),
-      ],
-     )
-
+      BottomNavigationBarItem(
+        icon: Icon( Icons.shopping_bag),
+        label: "Ecommerce",
+        ),
+      BottomNavigationBarItem(
+        icon: Icon( Icons.shopping_cart),
+        label: "cart",
+        ),
+    ]),
      );
    
   }
